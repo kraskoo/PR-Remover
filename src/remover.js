@@ -1,30 +1,28 @@
 (function () {
-	var divs = Array.from(document.querySelectorAll('div'));
-	var divToRemove = null;
-	var highestZIndex = -1;
-	while (true) {
-		for (var div of divs) {
-			var computedDivStyle = window.getComputedStyle(div, null);
-			var zIndex = Number(computedDivStyle.getPropertyValue('z-index'));
-			if (!isNaN(zIndex) && highestZIndex < zIndex) {
-				highestZIndex = zIndex;
-				divToRemove = div;
-				continue;
+	var divs = Array.from(document.querySelectorAll('div'))
+			.map(x => ({ el: x, cs: window.getComputedStyle(x, null) }))
+			.sort((a, b) => {
+				var zIndexA = Number(a.cs.getPropertyValue('z-index'));
+				var zIndexB = Number(b.cs.getPropertyValue('z-index'));
+				if (!isNaN(zIndexA) && !isNaN(zIndexB)) {
+					return zIndexA - zIndexB;
+				} else return 0;
+			});
+	divs.forEach(x => {
+		var zIndex = Number(x.cs.getPropertyValue('z-index'));
+		if (!isNaN(zIndex) && zIndex > 0) {
+			var div = x.el;
+			if (div.parentElement) {
+				div.parentElement.removeChild(div);
+				x.el = null;
 			}
-			
-			var opacity = Number(computedDivStyle.getPropertyValue('opacity'));
+		} else {
+			var opacity = Number(x.cs.getPropertyValue('opacity'));
 			if (!isNaN(opacity) && opacity < 1) {
-				div.style.opacity = '1';
+				x.el.style.opacity = '1';
 			}
 		}
-
-		if (divToRemove && divToRemove.parentElement) {
-			divs = divs.filter(x => x !== divToRemove);
-			divToRemove.parentElement.removeChild(divToRemove);
-			divToRemove = null;
-			highestZIndex = -1;
-		} else break;
-	}
-
+	});
+	
 	document.body.style.overflowY = 'auto';
 }());
