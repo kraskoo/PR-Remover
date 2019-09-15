@@ -1,6 +1,6 @@
 {
   "name": "PR Remover",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Removes Pop-Up(s) and more :)",
   "permissions": ["activeTab"],
   "background": {
