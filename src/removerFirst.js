@@ -9,6 +9,7 @@
       } else return Number.MIN_SAFE_INTEGER;
     });
   var firstDiv = divs[0];
+  divs.shift();
   if (firstDiv) {
     var divElement = firstDiv.el;
     if (divElement) {
@@ -22,7 +23,7 @@
     }
   }
 
-  divs.filter(x => x !== firstDiv).forEach(x => {
+  divs.forEach(x => {
     var zIndex = Number(x.cs.getPropertyValue('z-index'));
     if (!(!isNaN(zIndex) && zIndex > 0)) {
       var opacity = Number(x.cs.getPropertyValue('opacity'));
