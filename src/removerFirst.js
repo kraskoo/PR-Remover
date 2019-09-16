@@ -8,14 +8,23 @@
         return zIndexB - zIndexA;
       } else return Number.MIN_SAFE_INTEGER;
     });
-  divs.forEach(x => {
-    var zIndex = Number(x.cs.getPropertyValue('z-index'));
-    if (!isNaN(zIndex) && zIndex > 0) {
-      var div = x.el;
-      if (div.parentElement) {
-        div.parentElement.removeChild(div);
+  var firstDiv = divs[0];
+  if (firstDiv) {
+    var divElement = firstDiv.el;
+    if (divElement) {
+      var divComputedStyle = firstDiv.cs;
+      var zIndex = divComputedStyle.getPropertyValue('z-index');
+      if (!isNaN(zIndex) && zIndex > 0) {
+        if (divElement.parentElement) {
+          divElement.parentElement.removeChild(divElement);
+        }
       }
-    } else {
+    }
+  }
+
+  divs.filter(x => x !== firstDiv).forEach(x => {
+    var zIndex = Number(x.cs.getPropertyValue('z-index'));
+    if (!(!isNaN(zIndex) && zIndex > 0)) {
       var opacity = Number(x.cs.getPropertyValue('opacity'));
       if (!isNaN(opacity) && opacity < 1) {
         x.el.style.opacity = '1';

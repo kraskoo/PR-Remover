@@ -1,8 +1,12 @@
 {
   "name": "PR Remover",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Removes Pop-Up(s) and more :)",
-  "permissions": ["activeTab"],
+  "permissions": ["activeTab", "declarativeContent", "storage"],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
   "background": {
     "scripts": ["background.js"],
     "persistent": false
