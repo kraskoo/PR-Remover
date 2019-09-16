@@ -3,7 +3,6 @@
   var status = document.getElementById('status');
   document.addEventListener('DOMContentLoaded', function () {
     var colElement = oneByOneCheckbox.parentElement.parentElement;
-    console.log(colElement);
     var height = parseFloat(window.getComputedStyle(colElement, null).getPropertyValue('height'));
     status.parentElement.style.minHeight = height + 'px';
     chrome.storage.sync.get('removePopUpsOneByOne', function (items) {

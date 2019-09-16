@@ -10,6 +10,10 @@ body {
   text-align: center;
 }
 
+.container-fluid {
+  margin-bottom: 10px;
+}
+
 .switch {
   position: relative;
   display: inline-block;
@@ -62,7 +66,6 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-/* Rounded sliders */
 .slider.round {
   border-radius: 24px;
 }
