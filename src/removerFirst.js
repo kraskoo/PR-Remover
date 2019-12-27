@@ -17,5 +17,6 @@
       }
     }
   });
-  document.body.style.overflowY = 'auto';
+  document.body.style.overflow = 'auto';
+  document.documentElement.style.overflow = 'auto';
 }());
