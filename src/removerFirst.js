@@ -1,13 +1,22 @@
 (function () {
-  var elements = Array.from(document.querySelectorAll('*'))
+  var elements = Array.from(document.querySelectorAll('div'))
       .map(x => ({ el: x, cs: window.getComputedStyle(x, null), zIndex: Number(window.getComputedStyle(x, null).getPropertyValue('z-index')) }))
-      .sort((a, b) => b.zIndex - a.zIndex);
+      .sort((a, b) => {
+        var bVisibility = b.cs.getPropertyValue('visibility');
+        var aVisibility = a.cs.getPropertyValue('visibility');
+        if (bVisibility === 'visible') return 1;
+        else if (aVisibility === 'visible') return -1;
+        return b.zIndex - a.zIndex;
+      });
   var hasRemoveFirst = false;
   elements.forEach(x => {
+    if (!x.cs) return;
     var opacity = x.cs.getPropertyValue('opacity');
+    var hasOpacity = opacity && opacity !== '';
+    opacity = Number(opacity);
     var visibility = x.cs.getPropertyValue('visibility');
     var el = x.el;
-    if (!hasRemoveFirst && opacity && Number(opacity) === 1 && visibility === 'visible') {
+    if (!hasRemoveFirst && hasOpacity && !isNaN(opacity) && opacity === 1 && visibility === 'visible') {
       if (el.parentElement) {
         el.parentElement.removeChild(el);
         hasRemoveFirst = !hasRemoveFirst;
@@ -18,7 +27,7 @@
         hasRemoveFirst = !hasRemoveFirst;
       }
     } else {
-      if (!isNaN(Number(opacity)) && Number(opacity) < 1) {
+      if (hasOpacity && !isNaN(opacity) && opacity < 1) {
         el.style.opacity = '1';
       }
     }
