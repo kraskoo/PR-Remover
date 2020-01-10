@@ -13,7 +13,6 @@
       var opacity = x.cs.getPropertyValue('opacity');
       var hasOpacity = opacity && opacity !== '';
       opacity = Number(opacity);
-      console.log(typeof opacity);
       var visibility = x.cs.getPropertyValue('visibility');
       var el = x.el;
       if (hasOpacity && !isNaN(opacity) && opacity === 1 && visibility === 'visible') {
