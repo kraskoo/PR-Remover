@@ -1,12 +1,12 @@
 (function () {
-  Array.from(document.querySelectorAll('div'))
+  Array.from(document.querySelectorAll('*'))
     .map(x => ({ el: x, cs: window.getComputedStyle(x, null), zIndex: Number(window.getComputedStyle(x, null).getPropertyValue('z-index')) }))
     .sort((a, b) => b.zIndex - a.zIndex)
     .forEach(x => {
       if (!isNaN(x.zIndex) && x.zIndex > 0) {
-        var div = x.el;
-        if (div.parentElement) {
-          div.parentElement.removeChild(div);
+        var el = x.el;
+        if (el.parentElement) {
+          el.parentElement.removeChild(el);
         }
       } else {
         var opacity = Number(x.cs.getPropertyValue('opacity'));

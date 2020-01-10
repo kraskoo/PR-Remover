@@ -1,13 +1,13 @@
 (function () {
-  var divs = Array.from(document.querySelectorAll('div'))
+  var divs = Array.from(document.querySelectorAll('*'))
       .map(x => ({ el: x, cs: window.getComputedStyle(x, null), zIndex: Number(window.getComputedStyle(x, null).getPropertyValue('z-index')) }))
       .sort((a, b) => b.zIndex - a.zIndex);
   var hasRemoveFirst = false;
   divs.forEach(x => {
     if (!hasRemoveFirst && !isNaN(x.zIndex)) {
-      var div = x.el;
-      if (div && div.parentElement) {
-        div.parentElement.removeChild(div);
+      var el = x.el;
+      if (el && el.parentElement) {
+        el.parentElement.removeChild(el);
         hasRemoveFirst = !hasRemoveFirst;
       }
     } else {
