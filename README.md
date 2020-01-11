@@ -1,7 +1,7 @@
 ## PR-Remover
 Extension provide simple functionality
 
-* Remove Pop-Up
+* Removes Pop-Up instantly
 
 ## Installation
 Open [Google Chrome Extensions](https://chrome.google.com/webstore/detail/pr-remover/aojchjhafaloaefbkknmcffeamjkpidg/related)  
