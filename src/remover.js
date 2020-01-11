@@ -1,4 +1,4 @@
-chrome.runtime.onMessage.addListener(function (message, _sender, _sendResponse) {
+(function () {
   var parser = new DOMParser();
   var req = new XMLHttpRequest();
   req.addEventListener("load", function () {
@@ -7,6 +7,6 @@ chrome.runtime.onMessage.addListener(function (message, _sender, _sendResponse) 
     document.documentElement.style.overflow = 'auto';
     document.body.style.overflow = 'auto';
   });
-  req.open("GET", message);
+  req.open("GET", location.href);
   req.send();
-});
+}())
