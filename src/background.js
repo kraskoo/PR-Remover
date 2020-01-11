@@ -1,6 +1,5 @@
 'use strict';
 
-var catchFirst = false;
 var url = null;
 
 chrome.runtime.onInstalled.addListener(function () {
@@ -22,10 +21,7 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
 
 chrome.tabs.onUpdated.addListener(function (tabId, _changeInfo, _tab) {
   chrome.tabs.get(tabId, function (tab) {
-    if (!catchFirst) {
-      url = tab.url;
-      catchFirst = !catchFirst;
-    }
+    url = tab.url;
   });
 });
 
