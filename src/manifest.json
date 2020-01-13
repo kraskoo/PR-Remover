@@ -1,10 +1,16 @@
 {
   "name": "PR Remover",
-  "version": "2.1.0",
+  "version": "2.1.5",
   "description": "Removes Pop-Up instantly",
-  "permissions": ["activeTab", "declarativeContent", "storage"],
+  "permissions": [
+    "activeTab",
+    "declarativeContent",
+    "storage"
+  ],
   "background": {
-    "scripts": ["background.js"],
+    "scripts": [
+      "background.js"
+    ],
     "persistent": false
   },
   "browser_action": {
@@ -22,5 +28,17 @@
     "48": "images/icon48.png",
     "128": "images/icon128.png"
   },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "./third-party/jquery-3.4.1.min.js",
+        "./target-events.js"
+      ]
+    }
+  ],
   "manifest_version": 2
 }

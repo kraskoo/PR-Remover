@@ -1,7 +1,6 @@
 'use strict';
 
 chrome.runtime.onInstalled.addListener(function () {
-  chrome.storage.sync.set({ removePopUpsOneByOne: true }, () => { });
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
     chrome.declarativeContent.onPageChanged.addRules([{
       conditions: [new chrome.declarativeContent.PageStateMatcher({
@@ -11,6 +10,26 @@ chrome.runtime.onInstalled.addListener(function () {
     }]);
   });
 });
+
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+  // if (changeInfo.status && changeInfo.status === 'complete') {
+  //   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+  //     for (let tab of tabs) {
+  //       chrome.tabs.executeScript(tab.id, { file: './target-events.js' });
+  //     }
+  //   });
+  // }
+});
+
+chrome.runtime.onMessage.addListener(
+  function (request, sender, _sendResponse) {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      var currentTab = tabs[0];
+      if (currentTab) {
+        chrome.tabs.executeScript(currentTab.id, { code: request.code });
+      }
+    });
+  });
 
 chrome.browserAction.onClicked.addListener(function () {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -25,8 +44,5 @@ function removePopUp(tab) {
     return;
   }
 
-  chrome.storage.sync.get('removePopUpsOneByOne', function (items) {
-    var filePath = './remover.js';
-    chrome.tabs.executeScript(tab.id, { file: filePath });
-  });
+  chrome.tabs.executeScript(tab.id, { file: './remover.js' });
 }
