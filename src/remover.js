@@ -2,7 +2,7 @@
   function onLoadRequest() {
     var parser = new DOMParser();
     var req = new XMLHttpRequest();
-    return new Promise((res, rej) => {
+    return new Promise(function (res, rej) {
       req.addEventListener('load', function () {
         if (this.status >= 300) {
           rej(this.statusText);
@@ -20,7 +20,7 @@
     });
   }
 
-  onLoadRequest().then(() => {
+  onLoadRequest().then(function () {
     // some other operations
   }).catch(console.error);
 }());
