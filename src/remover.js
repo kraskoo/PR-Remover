@@ -12,7 +12,9 @@
         var doc = parser.parseFromString(this.responseText, 'text/html');
         document.body = doc.body;
         document.documentElement.style.overflow = 'auto';
+        document.documentElement.style.overscrollBehaviorY = 'auto';
         document.body.style.overflow = 'auto';
+        document.body.style.overscrollBehaviorY = 'auto';
         res()
       });
       req.open("GET", location.href);
