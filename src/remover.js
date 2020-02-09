@@ -11,6 +11,7 @@
 
         var doc = parser.parseFromString(this.responseText, 'text/html');
         document.body = doc.body;
+		document.querySelector('html').removeAttribute('class');
         document.documentElement.style.overflow = 'auto';
         document.documentElement.style.overscrollBehaviorY = 'auto';
         document.body.style.overflow = 'auto';
